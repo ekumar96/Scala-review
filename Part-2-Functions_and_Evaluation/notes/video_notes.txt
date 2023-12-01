@@ -1,0 +1,39 @@
+# [Working Hard to Keep it simple](https://www.youtube.com/watch?v=3jg1AheF4n0&ab_channel=O%27Reilly)
+### Clock speed vs. Cores
+Clock speed is not increasing much anymore, but cores starting to increase
+- fundamental truth - processors not getting much faster per core (levelled off), but number of cores is increasing
+- important to keep parallelism in mind, even if you think its not affecting you, it will soon, esp with rise of cloud computing
+- parallel programming is the new wave, need to adapt programming practices
+
+### Concurrency vs parallelism
+Parallelism: Have a program that could execute on single thread (sequentially), but want to make sure of multiple cores to execute programs faster
+Concurrency: Have something that is inherently concurrent (Twitter), processing a lot in realtime, so need a concurrent programming
+Both are hard, fundamentally
+
+Scala can help us get rid of some of this
+
+### Difficulties in concurrency/parallelism
+- Non-determinism - concurrent threads accesing shared mutable state - MUTABILITY + Parallel processing 
+- parallel processing is not going to go away, so need to reduce mutable state
+
+### Imperative vs. Functional Programming
+Must think about functional programming diff than imperatively
+Imperative - must think about computer does this then that then that, must initialize this first though
+Functional - build this, then that, then build the third thing out of the previous two (think about building in space)
+- for parallel, second is better, first would lead to deadlocks, race conditions, etc, second is like each thread builds a pillar which leads to final thing
+
+Parallel programming sequentially/imperatively, and thinking about every possible state in time, is very hard
+
+### Scala
+Scala combines object oriented way of thinking and functional programming
+- OO not just to attract java programmers, but fundamental part 
+- already used in lots of parallel programming areas
+
+### vs. Java
+Java - if had to process an array in parallel, would be annoying issue
+Scala allows you to easily create `par` array - allows multithread/parallel collections - can be processed in parallel fashion
+- if want precise control of threads - can alos be done with "actors" that can communicate across cores, or on diff computers v far away
+
+### How is this is used in science?
+- all these science fields have DSLs - domain specific languages that simulate fluid flow, do physics, etc - these langauges can be optimized in a domain sepcific way, because in the domain you know where parallelism lies
+- optimizer can take scala, and optimize based on hardware and domain speciif parallelism, generate optimized program that will beat handwirtten C++ code
