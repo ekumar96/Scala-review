@@ -43,4 +43,82 @@ Wider functional langauges: Haskell, Scala, Ruby, List
 - better for exploiting parallelism for cloud computing/multi-core
 
 
+## Lecture 2 - Functions and Evaluation
+### Scala 
+non primitive languages provide:
+- primitive expressions for simplest elements
+- ways to combine expressions
+- ways to abstract expressions - introduce a name for an expression
+
+### Scala shell / REPL
+Functional programming is like a calculator - most functional languages have a shell
+- shell = REPL (read eval print loop)
+
+### Expressions and evaluation
+expression (eg. what typed into REPL) 
+- processed left to right, simple algebra, 34 + 21, apply operator to operands
+eg. (2 * pi) * radius
+- first, look up pi, replace it, do operation
+= 6.28318 * radius
+- look up radius, replace, evaluate = 62.83...
+
+### Definitions
+definitions can have parameters - eg.
+1. eg. def square(x: Double) = x * x
+- then can use `square(2)`
+- can also use functions in other funciotns, eg. sum of squares
+
+function definitions need the type of their parameters: 
+1. eg. sumOfSquares(x: Double, y: Double) = square(x) + square(x)
+- return type is optional (if non recursive function) - but should give, good practice
+
+### Functions and Evaluation
+functions evaluated similarly to math above - start left to right, replace arg values, etc.
+1. eg. sumOfSquares(3, 2+2) -> sumOfSquares(3, 4) -> replace function with definition on right side
+2. eg. square(3) + square(4) -> 9 + square(4) -> 9 + 16
+substitution model - rewrite expression until leads to value
+model leads to turing machine - lambda calculus
+
+### Side effects
+this substitution model can be applied to all expressions, as long as they don't have a side effect
+eg. c++ -> evaluating this expression means return value of c, and increment it as well - this can't be done in substitution model
+- want to remove these side effects so can use substition model
+
+### Infinite states
+Does every expression reduce to a value? No - think about an infinite loop
+- eg. def loop: Int = loop
+This will loop forever -> loop will be reduced to loop, reduced to loop, etc.
+
+### Call by Value vs. Call by Name
+Before, for sumOfSquares, did CALL BY VALUE
+Can also do this: (call by name)
+1. eg. sumOfSquares(3, 2+2) -> square(3) + square(2+2) -> 3*3 + square(2+2) -> 3 * 3 + (2+ 2) * (2+2)
+- Will result in same value if both evaluations terminate, and expressions have pure functions
+
+Call by value - every funciton arg is evaluated only once (don't need to repeat 2+2)
+Call by name - function argument not evaluated if that parameter is not used in the function, could skip some work(eg if second parameter just thrown away)
+
+1. eg. def test(x: Int, y: Int) = x * x - which takes less tests? CBV vs CBN
+- test(2, 3) - CBV = CBN (both are same)
+- test(3+4, 8) - CBV better, does calc first so dont repeat 3+4
+- test(7, 2*4) - CBN better, can skip 2*4 calc
+- test(3+4, 2*4) - both same number of steps, but skip some multiplation and instead do some addition, so maybe CBN better
+
+### CBN termination
+But what if we don't have termination?
+- Theorem - if CBV evaluation of expression terminates, then CBN evaluation terminates too, BUT other way is not true
+
+1. eg. def first(x: Int, y: Int) = x
+first (1, loop) (pass nonterminating variable/function in)
+- CBN -> first(1, loop) -> 1 (terminates)
+- CBV -> first(1, loop) -> first(1, loop) -> first(1, loop), etc. (tryuing to reduce arguments first)
+
+### Using CBV/CBN in Scala
+Scala uses CBV - but why, we jsut saw the above? CBV is expoentially faster - reduce repeated work
+- works better with side effects
+HOWEVER, can force CBN (dont need to reduce second argument, because CBN), by using `: =>`
+1. eg. def constOne(x: Int, y: => Int) = 1
+- constOne(1+2, loop) -> constOne(3, loop) -> 1
+- constOne(loop, 1+2) -> constOne(loop, 1+2) ->  etc. (need to eval first arg because CBV)
+
 
