@@ -121,4 +121,42 @@ HOWEVER, can force CBN (dont need to reduce second argument, because CBN), by us
 - constOne(1+2, loop) -> constOne(3, loop) -> 1
 - constOne(loop, 1+2) -> constOne(loop, 1+2) ->  etc. (need to eval first arg because CBV)
 
+## Lecture 3 - Conditionals and Value Definitions
+So far, learned about syntax constructs of functions and functional applications, now we learn more
+
+### Conditional expression if-else
+Looks like Java, but used for expressions, not statements
+1. eg. `def abs(x: Int) = if (x >= 0) x else -x`
+- this if else is an expression, not statement - ALWAYS returns a value in scala
+- `x >= 0` is a Boolean expression called a predicate
+statement vs expression:
+- expression: produces a value and can be placed wherever a value is expected. It does something and returns a result. Can be put on right hand side of value assignment.
+- statement: an instruction that performs some action but does not return a value. It’s more about doing something. decides which block of code to execute, but it doesn’t produce a value itself.
+
+#### Booleans
+- can be composed with:
+1. !b = not b 
+2. a && b = a and b 
+3. a || b = a or b
+- use "short-circuit evaluation" - don't always look at whole expression, can simply look at left side at times
+
+### Value definitions
+Saw above that parameters of functions can be CBV or CBN - Same applies to definitions
+CBV - evaluate at point of definitions
+- eg. `val x = square(2)` (saved as 4)
+CBN - evaluate on each use of variable
+- eg. `def y = square(2)` (saved as square(2))
+Same things with `loop` apply here
+1. def loop: Boolean = loop
+- def x = loop (no problem)
+- val x = loop (will immediately kill REPL)
+
+### Writing AND and OR
+How would we write and and or without && or ||?
+- `def and(x: Boolean, y: Boolean) = if(x) y else False` 
+But what about `and(false, loop)`? Short circuit rule means that this should be false. Instead, func needs to be:
+- `def and(x: Boolean, y: => Boolean) if(x) y else False`
+If we put in and(loop, false), then would loop infinitely correctly
+
+Should always test parameters with infinite loops
 
