@@ -1,0 +1,46 @@
+# Lecture Notes
+## Lecture 1 - Functional vs. Imperative Programming
+### Main programming paradigms
+Main programming paradigms:
+- imperative programming
+- functional programming
+- logic programming
+Object oriented programming is orthogonal to all
+
+### Imperative vs. Declarative Programming
+[Imperative vs Declarative programming video](https://www.youtube.com/watch?v=E7Fbf7R3x6I&ab_channel=uidotdev) 
+#### Imperative programming
+- modifying mutable variables with assignments
+- use control structures such as if-then-else, loops, break, continue, return
+Physical structures of early computers shape languages: 
+- Can view imperative programming as instruction sequences for a Von Neumann computer (first computer)
+- had processor and memory, seperated by bus that could read instructions/data to/from processor
+- memory cells = mutable variables, variable dereferencing = load instructions, assigning variables = store instructions, if/then/else = jumps
+This leads to problems with scaling up - avoid conceptualizing programs "word by word"
+- scaling up leads to need for higher level abstractions - Von Neumann bottleneck
+higher level mathematical theories mean that mutation of variables should not be allowed, as happens in imperative programming - when x is in an equation, x does not change
+- imperative programming = adding java loop by looping over and adding together all numbers - functional is saying sum() everything (more abstracted awway, more human - SQL, HTML, CSS less imperative - langauge describes what you want, not how to traverse table and get elements in SQL)
+
+#### Functional programming
+- can see restrictions - no mutable variables, variable assignment, loops, other imperative control structures
+- but actually means focus on the functions - which can be values that are produced, consumed, composed, leading to more elegant programs
+- COULD do this in any language - java, etc, but easier in a functional programming language
+functions are "first class citizens"
+- can define func anywhere, eg. in another function
+- can be passed as parameters to functions, returned as results
+- langauges contain set of operators to compose functions
+
+### Examples of Functional languages:
+Strict functional languages
+- Lisp, Xpath, Haskell
+Wider functional langauges: Haskell, Scala, Ruby, List
+- ruby is seen as Object oriented, but allows blocks to be passed around
+- Lisp was first functional langauge, scala came in 2003
+
+### Benefits of functional programming:
+- simpler reasoning
+- better modularity
+- better for exploiting parallelism for cloud computing/multi-core
+
+
+
