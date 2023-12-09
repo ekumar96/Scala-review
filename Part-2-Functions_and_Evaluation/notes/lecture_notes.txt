@@ -160,3 +160,18 @@ If we put in and(loop, false), then would loop infinitely correctly
 
 Should always test parameters with infinite loops
 
+## Lecture 4 - Writing a square root function
+`def sqrt(x: Double): Double = ??`
+- Can calculate with successive approximiations (Newton's method)
+- start with an estimate, *y*, repeatedly improve estimate by dividing x/y and taking mean of this value and y 
+
+To create algorithms in functional languages, go step by step - start with big task, break down to smaller, etx. 
+```
+def sqrtIter(guess: Double, x: Double): Double = {
+    if(isCloseEnough(guess, x)) guess
+    else sqrtIter(improve(guess, x), x)
+}
+```
+- Note that this function is recursive - recursive functions need return types
+- Can see finished function in worksheet - Part-2-Functions_and_Evaluation/progfun/src/progfun.worksheet.sc
+
