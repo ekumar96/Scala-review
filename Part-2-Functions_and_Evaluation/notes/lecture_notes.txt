@@ -175,3 +175,45 @@ def sqrtIter(guess: Double, x: Double): Double = {
 - Note that this function is recursive - recursive functions need return types
 - Can see finished function in worksheet - Part-2-Functions_and_Evaluation/progfun/src/progfun.worksheet.sc
 
+
+## Lecture 5 - Blocks and Lexical Scope
+Cleaning up program, making it more modular and easier to use
+- program in worksheet had multiple smaller functions - good programming style
+- however, isCloseEnough, sqrtIter, and improve() only useful in context, want to hide these from users (avoid namespace pollution)
+- can nest functions by putting inside others (see Part-2-Functions_and_Evaluation/progfun/src/progfun2.worksheet.sc)
+- functions nested within are only accessible within algorithm
+
+### Blocks
+How did we do this? By using BLOCKS, delimited by `{}`
+- blocks is sequence of definitions, and must end with an expressions that is return value of the block
+- block is expression itself in scala - can be put anywhere exp is (right hand side of func. definition)
+- blocks change visibility
+- definition within blocks are not visible outside, definitions outside blocks are visible inside, unless overshadowed by def inside
+eg. 
+```
+val x = 1
+def f(y: Int) = y+1
+val result = {
+    val x = f(3) //block means that this value of x will be used now, this inner x cannot be used outside
+    x * x // block will return this value
+} + x // HOWEVER, this x is now outer value again (1)
+```
+
+eg. above, value of result would be 16
+
+### Semicolons
+In scala semicolons are optional, unless you want multiple expressions in one line
+eg. `val y = x + 1; y * y`
+
+This means that semicolons are "automatically" added to end of each line
+But what if you have expression that spans multiple lines? eg. in python, you use \
+- Can use '()' parantheses:
+```
+(longExpression
++ longExpressionContinued)
+```
+- Could use operator like '+' on preceding line, tells compiler not done yet. 
+```
+longExpression + 
+longExpressionContinued
+```
